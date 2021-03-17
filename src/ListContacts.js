@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 class ListContact extends Component {
     static propTypes = {
         contacts: PropTypes.array.isRequired,
-        onDeleteContact: PropTypes.func.isRequired
+        onDeleteContact: PropTypes.func.isRequired,
+        onNavigate: PropTypes.func.isRequired
     }
 
     state = {
@@ -24,7 +25,7 @@ class ListContact extends Component {
     render () {
         const { query} = this.state;
 
-        const { contacts, onDeleteContact } = this.props;
+        const { contacts, onDeleteContact, onNavigate } = this.props;
 
         const showContacts = (query.length === 0)
             ? contacts
@@ -40,6 +41,13 @@ class ListContact extends Component {
                         value= { this.state.query }
                         onChange = { (event) => { this.updateQuery(event.target.value)}}
                     />
+                    <a
+                        href='#create'
+                        className='add-contact'
+                        onClick={onNavigate}
+                    >
+                        Add Contact
+                    </a>
                 </div>
                 {showContacts.length !== contacts.length && (
                     <div className='showing-contacts'>
